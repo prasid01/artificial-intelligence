@@ -38,6 +38,7 @@ def show_solution(node, elapsed_time):
 
 def create_expressions(str_list):
     """ Converts a list of strings into a list of Expr objects """
+    #print("str list to create expressions is {}".format(str_list))
     return [expr(s) for s in str_list]
 
 
@@ -65,6 +66,8 @@ def make_relations(name, *args, key=lambda x: True):
 
     See additional examples in example_have_cake.py and air_cargo_problems.py 
     """
+    #print("ready to mmake relations")
+    #print("args are {}".format(*args))
     return create_expressions("{}({})".format(name, ", ".join(c)) for c in product(*args) if key(c))
 
 

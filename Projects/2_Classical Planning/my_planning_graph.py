@@ -20,7 +20,17 @@ class ActionLayer(BaseActionLayer):
         layers.ActionNode
         """
         # TODO: implement this function
-        raise NotImplementedError
+        
+        #print("I am here")
+        #print("Action A is", actionA)
+        #print("children of action A is ", self.children[actionA])
+
+        for effectA in self.children[actionA]:
+            for effectB in self.children[actionB]:
+                if effectA == ~effectB:
+                    return True
+        return False
+        #raise NotImplementedError
 
 
     def _interference(self, actionA, actionB):
@@ -35,7 +45,18 @@ class ActionLayer(BaseActionLayer):
         layers.ActionNode
         """
         # TODO: implement this function
-        raise NotImplementedError
+        print("BOOOOOOOOOOO Testing interference")
+        for effectA in self.children[actionA]:
+            for effectB in self.parents[actionB]:
+                if effectA == ~effectB:
+                    return True
+        for effectB in self.children[actionB]:
+            for effectA in self.parents[actionA]:
+                if effectA == ~effectB:
+                    return True
+        return False
+
+        #raise NotImplementedError
 
     def _competing_needs(self, actionA, actionB):
         """ Return True if any preconditions of the two actions are pairwise mutex in the parent layer
@@ -50,7 +71,8 @@ class ActionLayer(BaseActionLayer):
         layers.BaseLayer.parent_layer
         """
         # TODO: implement this function
-        raise NotImplementedError
+        print("HOOOOOOOOOOO Testing competing needs")
+        #raise NotImplementedError
 
 
 class LiteralLayer(BaseLiteralLayer):
@@ -67,12 +89,19 @@ class LiteralLayer(BaseLiteralLayer):
         layers.BaseLayer.parent_layer
         """
         # TODO: implement this function
-        raise NotImplementedError
+        print("BooHoo inconsistent support")
+        #raise NotImplementedError
 
     def _negation(self, literalA, literalB):
         """ Return True if two literals are negations of each other """
         # TODO: implement this function
-        raise NotImplementedError
+        #print("Testing negation")
+        if literalA == ~literalB:
+            return True
+        else:
+            return False
+
+        #raise NotImplementedError
 
 
 class PlanningGraph:
